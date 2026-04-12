@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>今天吃什么 - 精神状态阶梯抽卡</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 启动页 -->
+    <div id="start-page" class="page active">
+        <div class="container">
+            <h1>今天吃什么</h1>
+            <p class="subtitle">人类决策力退化辅助工具</p>
+            <button id="start-btn" class="start-btn">开始抽卡</button>
+        </div>
+    </div>
+    
+    <!-- 抽卡页面 -->
+    <div id="draw-page" class="page">
+        <div class="container">
+            <h1 id="step-title">今日干饭运势</h1>
+            <p id="step-subtitle" class="subtitle">点击按钮，开启今日干饭指引</p>
+            
+            <div class="card-container">
+                <div id="card" class="card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <div class="card-content">
+                                <div class="card-icon">🍽️</div>
+                                <h2>点击抽卡</h2>
+                                <p id="card-front-text">开启今日干饭指引</p>
+                            </div>
+                        </div>
+                        <div class="card-back">
+                            <div class="card-content">
+                                <div id="card-back-icon" class="card-icon">🍀</div>
+                                <h2 id="card-back-name">运势名称</h2>
+                                <p id="card-back-desc">运势描述</p>
+                                <div id="card-back-rarity" class="rarity-badge"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <button id="draw-btn" class="draw-btn">开启今日干饭指引</button>
+            
+            <div class="progress-container">
+                <div class="progress-steps">
+                    <div id="step-1" class="progress-step active">1</div>
+                    <div id="step-2" class="progress-step">2</div>
+                    <div id="step-3" class="progress-step">3</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 分享页 -->
+    <div id="share-page" class="page">
+        <div class="container">
+            <h1>今日伙食已确定</h1>
+            <div class="result-cards">
+                <div class="result-card">
+                    <h3>今日干饭运势</h3>
+                    <div class="result-content">
+                        <span id="result-luck-icon" class="result-icon">🍀</span>
+                        <span id="result-luck-name">运势名称</span>
+                    </div>
+                </div>
+                <div class="result-card">
+                    <h3>今日菜系风格</h3>
+                    <div class="result-content">
+                        <span id="result-style-icon" class="result-icon">🍲</span>
+                        <span id="result-style-name">菜系名称</span>
+                    </div>
+                </div>
+                <div class="result-card">
+                    <h3>最终菜品</h3>
+                    <div class="result-content">
+                        <span id="result-food-icon" class="result-icon">🍕</span>
+                        <span id="result-food-name">菜品名称</span>
+                        <span id="result-rarity" class="rarity-badge">普通</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="status-container">
+                <p>今日精神状态适配度：<span id="status-percentage">100</span>%</p>
+            </div>
+            
+            <div class="share-container">
+                <p>长按保存完整三连抽卡片</p>
+                <p class="share-text">我的今日伙食是<span id="share-food">菜品名称</span>，精神状态已暴露。</p>
+                <button id="restart-btn" class="restart-btn">再来一次</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
