@@ -22,22 +22,67 @@
             <h1 id="step-title">今日干饭运势</h1>
             <p id="step-subtitle" class="subtitle">点击按钮，开启今日干饭指引</p>
             
-            <div class="card-container">
-                <div id="card" class="card">
-                    <div class="card-inner">
-                        <div class="card-front">
-                            <div class="card-content">
-                                <div class="card-icon">🍽️</div>
-                                <h2>点击抽卡</h2>
-                                <p id="card-front-text">开启今日干饭指引</p>
+            <div class="card-viewport">
+                <div class="card-track" id="card-track">
+                    <!-- 第一张卡片：运势 -->
+                    <div id="card-1" class="card">
+                        <div class="card-inner">
+                            <div class="card-front">
+                                <div class="card-content">
+                                    <div class="card-icon">🔮</div>
+                                    <h2>今日运势</h2>
+                                    <p>点击开启干饭指引</p>
+                                </div>
+                            </div>
+                            <div class="card-back">
+                                <div class="card-content">
+                                    <div class="card-icon luck-icon">🍀</div>
+                                    <h2 class="luck-name">运势名称</h2>
+                                    <p class="luck-desc">运势描述</p>
+                                    <div class="rarity-badge"></div>
+                                </div>
                             </div>
                         </div>
-                        <div class="card-back">
-                            <div class="card-content">
-                                <div id="card-back-icon" class="card-icon">🍀</div>
-                                <h2 id="card-back-name">运势名称</h2>
-                                <p id="card-back-desc">运势描述</p>
-                                <div id="card-back-rarity" class="rarity-badge"></div>
+                    </div>
+
+                    <!-- 第二张卡片：风格 -->
+                    <div id="card-2" class="card">
+                        <div class="card-inner">
+                            <div class="card-front">
+                                <div class="card-content">
+                                    <div class="card-icon">🍳</div>
+                                    <h2>菜系风格</h2>
+                                    <p>探寻今日口味</p>
+                                </div>
+                            </div>
+                            <div class="card-back step-2">
+                                <div class="card-content">
+                                    <div class="card-icon style-icon">🍲</div>
+                                    <h2 class="style-name">风格名称</h2>
+                                    <p class="style-desc">风格描述</p>
+                                    <div class="rarity-badge"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 第三张卡片：食物 -->
+                    <div id="card-3" class="card">
+                        <div class="card-inner">
+                            <div class="card-front">
+                                <div class="card-content">
+                                    <div class="card-icon">🍱</div>
+                                    <h2>最终菜品</h2>
+                                    <p>揭晓今日伙食</p>
+                                </div>
+                            </div>
+                            <div class="card-back step-3">
+                                <div class="card-content">
+                                    <div class="card-icon food-icon">🍕</div>
+                                    <h2 class="food-name">菜品名称</h2>
+                                    <p class="food-desc">菜品描述</p>
+                                    <div class="rarity-badge food-rarity"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -53,6 +98,28 @@
                     <div id="step-3" class="progress-step">3</div>
                 </div>
             </div>
+            
+            <!-- 结果显示容器 -->
+            <div id="result-container" class="result-container" style="display: none;">
+                <h2>今日干饭结果</h2>
+                <div class="result-item">
+                    <span class="result-label">运势：</span>
+                    <span id="result-luck-display" class="result-value"></span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">风格：</span>
+                    <span id="result-style-display" class="result-value"></span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">菜品：</span>
+                    <span id="result-food-display" class="result-value"></span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">精神状态适配度：</span>
+                    <span id="result-percentage-display" class="result-value"></span>%
+                </div>
+                <button id="new-draw-btn" class="new-draw-btn">再来一次</button>
+            </div>
         </div>
     </div>
     
@@ -65,21 +132,21 @@
                     <h3>今日干饭运势</h3>
                     <div class="result-content">
                         <span id="result-luck-icon" class="result-icon">🍀</span>
-                        <span id="result-luck-name">运势名称</span>
+                        <span id="result-luck-name" class="result-name">运势名称</span>
                     </div>
                 </div>
                 <div class="result-card">
                     <h3>今日菜系风格</h3>
                     <div class="result-content">
                         <span id="result-style-icon" class="result-icon">🍲</span>
-                        <span id="result-style-name">菜系名称</span>
+                        <span id="result-style-name" class="result-name">菜系名称</span>
                     </div>
                 </div>
                 <div class="result-card">
                     <h3>最终菜品</h3>
                     <div class="result-content">
                         <span id="result-food-icon" class="result-icon">🍕</span>
-                        <span id="result-food-name">菜品名称</span>
+                        <span id="result-food-name" class="result-name">菜品名称</span>
                         <span id="result-rarity" class="rarity-badge">普通</span>
                     </div>
                 </div>
@@ -87,6 +154,43 @@
             
             <div class="status-container">
                 <p>今日精神状态适配度：<span id="status-percentage">100</span>%</p>
+            </div>
+            
+            <div id="share-card-canvas" class="share-card-canvas">
+                <div class="share-card-inner">
+                    <div class="share-card-header">
+                        <h2>今日干饭报告</h2>
+                        <p id="share-date">2026-04-13</p>
+                    </div>
+                    <div class="share-card-results">
+                        <div class="share-card-item">
+                            <span id="share-luck-icon">🍀</span>
+                            <div class="item-text">
+                                <span class="label">运势</span>
+                                <span id="share-luck-name">运势名称</span>
+                            </div>
+                        </div>
+                        <div class="share-card-item">
+                            <span id="share-style-icon">🍲</span>
+                            <div class="item-text">
+                                <span class="label">风格</span>
+                                <span id="share-style-name">菜系名称</span>
+                            </div>
+                        </div>
+                        <div class="share-card-item highlight">
+                            <span id="share-food-icon">🍕</span>
+                            <div class="item-text">
+                                <span class="label">最终结果</span>
+                                <span id="share-food-name-inner">菜品名称</span>
+                                <span id="share-rarity-badge" class="rarity-badge">普通</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="share-card-footer">
+                        <p>精神状态适配度：<span id="share-percentage">100</span>%</p>
+                        <p class="tag">#今天吃什么 #人类决策力退化辅助工具</p>
+                    </div>
+                </div>
             </div>
             
             <div class="share-container">
