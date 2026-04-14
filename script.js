@@ -2,22 +2,82 @@
 const drawData = {
     // 第一层：今日干饭运势
     luck: [
-        { name: '今日宜碳水充电', icon: '🔋', desc: '适合补充能量，迎接挑战' },
-        { name: '今日宜重口味发泄', icon: '🌶️', desc: '适合用辣味释放压力' },
-        { name: '今日宜清淡养胃', icon: '🥬', desc: '适合调理肠胃，保持健康' },
-        { name: '今日宜糊弄学进餐', icon: '🤷', desc: '适合简单应付，节省时间' },
-        { name: '今日宜精神辟谷', icon: '🧘', desc: '适合少吃，让身体休息' },
-        { name: '今日宜奢侈一顿', icon: '💰', desc: '适合犒劳自己，享受美食' }
+        { 
+            name: '今日宜碳水充电', 
+            icon: '🔋', 
+            desc: '适合补充能量，迎接挑战',
+            styleOptions: [0, 2, 4] // 对应风格索引：火辣暴躁、垃圾快乐、深夜报复
+        },
+        { 
+            name: '今日宜重口味发泄', 
+            icon: '🌶️', 
+            desc: '适合用辣味释放压力',
+            styleOptions: [0, 4] // 对应风格索引：火辣暴躁、深夜报复
+        },
+        { 
+            name: '今日宜清淡养胃', 
+            icon: '🥬', 
+            desc: '适合调理肠胃，保持健康',
+            styleOptions: [1, 5] // 对应风格索引：清淡佛系、虚无空气
+        },
+        { 
+            name: '今日宜糊弄学进餐', 
+            icon: '🤷', 
+            desc: '适合简单应付，节省时间',
+            styleOptions: [2, 3] // 对应风格索引：垃圾快乐、食堂糊弄
+        },
+        { 
+            name: '今日宜精神辟谷', 
+            icon: '🧘', 
+            desc: '适合少吃，让身体休息',
+            styleOptions: [1, 5] // 对应风格索引：清淡佛系、虚无空气
+        },
+        { 
+            name: '今日宜奢侈一顿', 
+            icon: '💰', 
+            desc: '适合犒劳自己，享受美食',
+            styleOptions: [0, 2, 4] // 对应风格索引：火辣暴躁、垃圾快乐、深夜报复
+        }
     ],
     
     // 第二层：今日菜系风格
     style: [
-        { name: '火辣暴躁菜系', icon: '🌶️', desc: '适合：想创飞全世界的心情' },
-        { name: '清淡佛系菜系', icon: '🥬', desc: '适合：内心已无波澜' },
-        { name: '垃圾快乐菜系', icon: '🍔', desc: '适合：先快乐再说别的' },
-        { name: '食堂糊弄菜系', icon: '🍱', desc: '适合：精神状态一般' },
-        { name: '深夜报复菜系', icon: '🌙', desc: '适合：白天受委屈了' },
-        { name: '虚无空气菜系', icon: '💨', desc: '适合：已飞升，无需进食' }
+        { 
+            name: '火辣暴躁菜系', 
+            icon: '🌶️', 
+            desc: '适合：想创飞全世界的心情',
+            foodOptions: [8, 9, 15, 16, 20, 21] // 对应菜品索引：麻辣香锅、螺蛳粉、炸鸡、寿司、火锅、满汉全席
+        },
+        { 
+            name: '清淡佛系菜系', 
+            icon: '🥬', 
+            desc: '适合：内心已无波澜',
+            foodOptions: [4, 5, 12, 14, 20] // 对应菜品索引：蛋炒饭、盖浇饭、咖啡配面包、轻食沙拉、火锅
+        },
+        { 
+            name: '垃圾快乐菜系', 
+            icon: '🍔', 
+            desc: '适合：先快乐再说别的',
+            foodOptions: [2, 3, 15, 16, 17, 20, 22] // 对应菜品索引：沙县小吃、基础外卖、炸鸡、寿司、烧烤夜宵、火锅、米其林大餐
+        },
+        { 
+            name: '食堂糊弄菜系', 
+            icon: '🍱', 
+            desc: '适合：精神状态一般',
+            foodOptions: [0, 1, 4, 5, 6, 7, 10, 11] // 对应菜品索引：黄焖鸡米饭、兰州拉面、蛋炒饭、盖浇饭、公司楼下快餐、加班便利店盒饭、饭团、三明治
+        },
+        { 
+            name: '深夜报复菜系', 
+            icon: '🌙', 
+            desc: '适合：白天受委屈了',
+            foodOptions: [8, 9, 15, 16, 17, 20, 22] // 对应菜品索引：麻辣香锅、螺蛳粉、炸鸡、寿司、烧烤夜宵、火锅、米其林大餐
+        },
+        { 
+            name: '虚无空气菜系', 
+            icon: '💨', 
+            desc: '适合：已飞升，无需进食',
+            foodOptions: [18, 19, 23, 24] // 对应菜品索引：空气、什么都不吃、老板画的饼、AI 生成的大饼
+        }
     ],
     
     // 第三层：最终菜品（带稀有度）
@@ -27,12 +87,16 @@ const drawData = {
         { name: '兰州拉面', icon: '🍜', rarity: 'common', desc: '传统面食，百吃不厌' },
         { name: '沙县小吃', icon: '🥟', rarity: 'common', desc: '种类丰富，经济实惠' },
         { name: '基础外卖', icon: '📦', rarity: 'common', desc: '方便快捷，选择多样' },
+        { name: '蛋炒饭', icon: '🍚', rarity: 'common', desc: '简单美味，管饱又实惠' },
+        { name: '盖浇饭', icon: '🍛', rarity: 'common', desc: '荤素搭配，营养均衡' },
         
         // 稀有
         { name: '公司楼下快餐', icon: '🏢', rarity: 'rare', desc: '打工人的日常选择' },
         { name: '加班便利店盒饭', icon: '🏪', rarity: 'rare', desc: '加班必备，快速充饥' },
         { name: '咖啡配面包', icon: '☕', rarity: 'rare', desc: '提神醒脑，简单快捷' },
         { name: '随便点的外卖', icon: '🤷', rarity: 'rare', desc: '选择困难症的救星' },
+        { name: '饭团', icon: '🍙', rarity: 'rare', desc: '便携方便，适合赶时间' },
+        { name: '三明治', icon: '🥪', rarity: 'rare', desc: '西式简餐，营养均衡' },
         
         // 史诗
         { name: '麻辣香锅', icon: '🌶️', rarity: 'epic', desc: '匹配你混乱的精神秩序' },
@@ -40,14 +104,18 @@ const drawData = {
         { name: '烧烤夜宵', icon: '🍢', rarity: 'epic', desc: '夜晚才是真正的人生' },
         { name: '泡面', icon: '🍜', rarity: 'epic', desc: '极简续命，不问意义' },
         { name: '轻食沙拉', icon: '🥗', rarity: 'epic', desc: '看起来健康，内心发疯' },
+        { name: '炸鸡', icon: '🍗', rarity: 'epic', desc: '垃圾快乐，解压神器' },
+        { name: '寿司', icon: '🍣', rarity: 'epic', desc: '精致美味，心情愉悦' },
         
         // 传说
         { name: '回家吃饭', icon: '🏠', rarity: 'legendary', desc: '天选之人，概率极低' },
+        { name: '空气', icon: '💨', rarity: 'legendary', desc: '今日精神状态：无需进食' },
+        { name: '什么都不吃', icon: '🍃', rarity: 'legendary', desc: '已悟道，勿扰' },
         { name: '火锅', icon: '🍲', rarity: 'legendary', desc: '奢侈治愈，烦恼清零' },
         { name: '老板画的饼', icon: '🫓', rarity: 'legendary', desc: '管饱但难消化' },
         { name: 'AI 生成的大饼', icon: '🤖', rarity: 'legendary', desc: '看得见吃不着' },
-        { name: '空气', icon: '💨', rarity: 'legendary', desc: '今日精神状态：无需进食' },
-        { name: '什么都不吃', icon: '🍃', rarity: 'legendary', desc: '已悟道，勿扰' }
+        { name: '满汉全席', icon: '🍲', rarity: 'legendary', desc: '终极奢侈，人生巅峰' },
+        { name: '米其林大餐', icon: '⭐', rarity: 'legendary', desc: '逼格拉满，钱包空空' }
     ]
 };
 
@@ -89,6 +157,11 @@ let results = {
     food: null
 };
 
+// 动画相关参数
+const flipDurationMs = 1200; // 翻转动画时长
+const revealDelayMs = 600; // 内容显示延迟
+const postFlipPauseMs = 1500; // 翻转后暂停时长
+
 // 启动抽卡
 function startDraw() {
     startPage.classList.remove('active');
@@ -127,9 +200,9 @@ function updateStepUI() {
     }
     
     // 更新进度条
-    step1.className = 'progress-step' + (currentStep >= 1 ? ' active' : '');
-    step2.className = 'progress-step' + (currentStep >= 2 ? ' active' : '');
-    step3.className = 'progress-step' + (currentStep >= 3 ? ' active' : '');
+    step1.className = 'progress-step' + (currentStep > 1 ? ' active' : '');
+    step2.className = 'progress-step' + (currentStep > 2 ? ' active' : '');
+    step3.className = 'progress-step' + (currentStep > 3 ? ' active' : '');
 }
 
 // 抽卡函数
@@ -144,11 +217,12 @@ function drawCard() {
     
     // 1. 获取背面元素
     const cardBack = currentCard.querySelector('.card-back');
-    const iconEl = cardBack.querySelector('.card-icon');
-    const nameEl = cardBack.querySelector('h2');
-    const descEl = cardBack.querySelector('p');
+    const cardContent = cardBack.querySelector('.card-content');
+    const iconEl = cardContent.querySelector('.card-icon');
+    const nameEl = cardContent.querySelector('h2');
+    const descEl = cardContent.querySelector('p');
     // 前两张卡片没有 rarity-badge，需要安全获取
-    const rarityEl = cardBack.querySelector('.rarity-badge');
+    const rarityEl = cardContent.querySelector('.rarity-badge');
 
     // 2. 随机选择结果
     let selectedItem;
@@ -159,65 +233,102 @@ function drawCard() {
             console.log('选择的运势结果:', selectedItem);
             break;
         case 2:
-            selectedItem = drawData.style[Math.floor(Math.random() * drawData.style.length)];
+            // 根据当前运势选择对应的风格
+            if (results.luck && results.luck.styleOptions) {
+                const styleIndex = results.luck.styleOptions[Math.floor(Math.random() * results.luck.styleOptions.length)];
+                selectedItem = drawData.style[styleIndex];
+            } else {
+                selectedItem = drawData.style[Math.floor(Math.random() * drawData.style.length)];
+            }
             results.style = selectedItem;
             console.log('选择的风格结果:', selectedItem);
             break;
         case 3:
-            selectedItem = drawData.food[Math.floor(Math.random() * drawData.food.length)];
+            // 根据当前风格选择对应的菜品
+            if (results.style && results.style.foodOptions) {
+                const foodIndex = results.style.foodOptions[Math.floor(Math.random() * results.style.foodOptions.length)];
+                selectedItem = drawData.food[foodIndex];
+            } else {
+                selectedItem = drawData.food[Math.floor(Math.random() * drawData.food.length)];
+            }
             results.food = selectedItem;
             console.log('选择的菜品结果:', selectedItem);
             console.log('当前results对象:', results);
             break;
     }
     
-    // 3. 卡片旋转动画
+    // 3. 先清空卡片背面内容，避免在翻转前显示结果
+    console.log('清空卡片背面内容');
+    if (iconEl) {
+        iconEl.textContent = '';
+    }
+    if (nameEl) {
+        nameEl.textContent = '';
+    }
+    if (descEl) {
+        descEl.textContent = '';
+    }
+    
+    if (rarityEl) {
+        rarityEl.textContent = '';
+        rarityEl.className = 'rarity-badge';
+    }
+
+    // 4. 卡片翻转动画
     requestAnimationFrame(() => {
-        // 先移除可能存在的flipped类和transform
+        const flipDurationMs = 1200;
+        const revealDelayMs = Math.floor(flipDurationMs / 2);
+        const postFlipPauseMs = 300;
+
+        // 先移除可能存在的 flipped 类，确保可重复触发动画
         currentCard.classList.remove('flipped');
-        currentCard.style.transform = '';
         // 触发重排
         void currentCard.offsetWidth;
-        // 添加spinning类
-        currentCard.classList.add('spinning');
         
-        // 4. 在旋转过程中更新背面内容 (400ms 左右卡片侧面对着用户)
+        currentCard.classList.add('flipped');
+        console.log('卡片开始翻转');
+        
+        // 在翻转过程中更新背面内容
         setTimeout(() => {
-            if (iconEl) iconEl.textContent = selectedItem.icon;
-            if (nameEl) nameEl.textContent = selectedItem.name;
-            if (descEl) descEl.textContent = selectedItem.desc || '';
+            console.log('更新卡片背面内容:', selectedItem);
+            if (iconEl) {
+                console.log('更新icon元素:', selectedItem.icon);
+                iconEl.textContent = selectedItem.icon;
+            }
+            if (nameEl) {
+                console.log('更新name元素:', selectedItem.name);
+                nameEl.textContent = selectedItem.name;
+            }
+            if (descEl) {
+                console.log('更新desc元素:', selectedItem.desc || '');
+                descEl.textContent = selectedItem.desc || '';
+            }
             
             if (currentStep === 3 && selectedItem.rarity && rarityEl) {
+                console.log('更新rarity元素:', getRarityText(selectedItem.rarity));
                 rarityEl.textContent = getRarityText(selectedItem.rarity);
                 rarityEl.className = `rarity-badge ${selectedItem.rarity}`;
             }
-        }, 600); // 1.2s 的一半是 0.6s
-
-        // 5. 停止旋转并保持翻转状态
+        }, revealDelayMs);
+        
+        // 翻转完成后，进入下一步或显示结果
         setTimeout(() => {
-            // 移除spinning类
-            currentCard.classList.remove('spinning');
-            // 立即添加flipped类，让卡片保持翻转状态
-            currentCard.classList.add('flipped');
+            console.log('翻转完成，当前步骤:', currentStep);
             
-            // 6. 翻转完成后，进入下一步或显示结果
-            setTimeout(() => {
-                console.log('翻转完成，当前步骤:', currentStep);
-                if (currentStep < 3) {
-                    currentStep++;
-                    console.log('进入下一步骤:', currentStep);
-                    updateStepUI();
-                    drawBtn.disabled = false;
-                    drawBtn.textContent = getDrawBtnText(currentStep);
-                } else {
-                    console.log('调用showResult函数');
-                    // 确保卡片完全停止动画后再显示结果
-                    setTimeout(() => {
-                        showResult();
-                    }, 200);
-                }
-            }, 1500); // 增加暂停时间，让用户看清结果
-        }, 1200); // 对应 CSS 中 1.2s 的动画时长
+            if (currentStep < 3) {
+                currentStep++;
+                console.log('进入下一步骤:', currentStep);
+                updateStepUI();
+                drawBtn.disabled = false;
+                drawBtn.textContent = getDrawBtnText(currentStep);
+            } else {
+                console.log('调用showResult函数');
+                // 确保卡片完全停止动画后再显示结果
+                setTimeout(() => {
+                    showResult();
+                }, 200);
+            }
+        }, flipDurationMs + postFlipPauseMs);
     });
 }
 
@@ -256,28 +367,132 @@ function showResult() {
     resultRarity.textContent = getRarityText(results.food.rarity);
     resultRarity.className = `rarity-badge ${results.food.rarity}`;
     
-    // 计算精神状态适配度
-    const percentage = Math.floor(Math.random() * 30) + 70; // 70-100%
-    statusPercentage.textContent = percentage;
-    console.log('更新状态适配度:', percentage);
+    // 计算今日干饭运势
+    let percentage = 70; // 基础运势
     
-    // 更新分享卡片可视化内容
-    console.log('更新分享卡片内容');
-    document.getElementById('share-luck-icon').textContent = results.luck.icon;
-    document.getElementById('share-luck-name').textContent = results.luck.name;
-    document.getElementById('share-style-icon').textContent = results.style.icon;
-    document.getElementById('share-style-name').textContent = results.style.name;
-    document.getElementById('share-food-icon').textContent = results.food.icon;
-    document.getElementById('share-food-name-inner').textContent = results.food.name;
-    const shareRarityBadge = document.getElementById('share-rarity-badge');
-    shareRarityBadge.textContent = getRarityText(results.food.rarity);
-    shareRarityBadge.className = `rarity-badge ${results.food.rarity}`;
-    document.getElementById('share-percentage').textContent = percentage;
-    document.getElementById('share-date').textContent = new Date().toLocaleDateString('zh-CN');
+    // 特殊处理：空气或什么都不吃
+    if (results.food.name.includes('空气') || results.food.name.includes('什么都不吃')) {
+        percentage = 110; // 直接给到110%
+    } else {
+        // 稀有度加成
+        const rarityBonus = {
+            'common': 0,
+            'rare': 5,
+            'epic': 10,
+            'legendary': 15
+        };
+        percentage += rarityBonus[results.food.rarity] || 0;
+        
+        // 运势与菜品匹配度
+        let matchBonus = 0;
+        if (results.luck && results.food) {
+            // 碳水充电运势
+            if (results.luck.name.includes('碳水充电') && 
+                (results.food.name.includes('米饭') || results.food.name.includes('拉面') || results.food.name.includes('炒饭'))) {
+                matchBonus += 10;
+            }
+            // 重口味发泄运势
+            else if (results.luck.name.includes('重口味发泄') && 
+                     (results.food.name.includes('麻辣') || results.food.name.includes('螺蛳粉') || results.food.name.includes('烧烤'))) {
+                matchBonus += 10;
+            }
+            // 清淡养胃运势
+            else if (results.luck.name.includes('清淡养胃') && 
+                     (results.food.name.includes('沙拉') || results.food.name.includes('盖浇饭') || results.food.name.includes('回家吃饭'))) {
+                matchBonus += 10;
+            }
+            // 糊弄学进餐运势
+            else if (results.luck.name.includes('糊弄学进餐') && 
+                     (results.food.name.includes('外卖') || results.food.name.includes('泡面') || results.food.name.includes('便利店'))) {
+                matchBonus += 10;
+            }
+            // 精神辟谷运势
+            else if (results.luck.name.includes('精神辟谷') && 
+                     (results.food.name.includes('空气') || results.food.name.includes('什么都不吃'))) {
+                matchBonus += 10;
+            }
+            // 奢侈一顿运势
+            else if (results.luck.name.includes('奢侈一顿') && 
+                     (results.food.name.includes('火锅') || results.food.name.includes('满汉全席') || results.food.name.includes('米其林'))) {
+                matchBonus += 10;
+            }
+            // 其他匹配情况
+            else {
+                matchBonus += Math.floor(Math.random() * 5); // 随机0-4%的匹配度
+            }
+        }
+        
+        // 最终运势，限制在70-100%之间
+        percentage = Math.min(100, percentage + matchBonus);
+    }
+    percentage = Math.floor(percentage);
+    
+    statusPercentage.textContent = percentage;
+    console.log('更新干饭运势:', percentage);
+    
+    // 根据菜品生成不同的分享文案
+    let shareText = '';
+    const foodName = results.food.name;
+    
+    // 根据菜品名称生成不同的文案
+    if (foodName.includes('回家吃饭')) {
+        shareText = `今日伙食是${foodName}，天选之人的待遇，精神状态直接拉满！`;
+    } else if (foodName.includes('火锅')) {
+        shareText = `今日伙食是${foodName}，奢侈治愈，烦恼清零，精神状态完美！`;
+    } else if (foodName.includes('空气') || foodName.includes('什么都不吃')) {
+        shareText = `今日伙食是${foodName}，已悟道，精神状态超然物外。`;
+    } else if (foodName.includes('加班')) {
+        shareText = `今日伙食是${foodName}，加班必备，精神状态在崩溃边缘。`;
+    } else if (foodName.includes('泡面')) {
+        shareText = `今日伙食是${foodName}，极简续命，精神状态不问意义。`;
+    } else if (foodName.includes('沙拉')) {
+        shareText = `今日伙食是${foodName}，看起来健康，内心发疯，精神状态分裂。`;
+    } else if (foodName.includes('烧烤') || foodName.includes('夜宵')) {
+        shareText = `今日伙食是${foodName}，夜晚才是真正的人生，精神状态亢奋！`;
+    } else if (foodName.includes('麻辣') || foodName.includes('螺蛳粉')) {
+        shareText = `今日伙食是${foodName}，攻击性极强，精神状态需要发泄。`;
+    } else if (foodName.includes('AI 生成的大饼') || foodName.includes('老板画的饼')) {
+        shareText = `今日伙食是${foodName}，看得见吃不着，精神状态空虚。`;
+    } else if (foodName.includes('黄焖鸡米饭')) {
+        shareText = `今日伙食是${foodName}，经典快餐，安全可靠，精神状态稳定。`;
+    } else if (foodName.includes('兰州拉面')) {
+        shareText = `今日伙食是${foodName}，传统面食，百吃不厌，精神状态满足。`;
+    } else if (foodName.includes('沙县小吃')) {
+        shareText = `今日伙食是${foodName}，种类丰富，经济实惠，精神状态充实。`;
+    } else if (foodName.includes('基础外卖')) {
+        shareText = `今日伙食是${foodName}，方便快捷，选择多样，精神状态轻松。`;
+    } else if (foodName.includes('蛋炒饭')) {
+        shareText = `今日伙食是${foodName}，简单美味，管饱又实惠，精神状态满足。`;
+    } else if (foodName.includes('盖浇饭')) {
+        shareText = `今日伙食是${foodName}，荤素搭配，营养均衡，精神状态健康。`;
+    } else if (foodName.includes('公司楼下快餐')) {
+        shareText = `今日伙食是${foodName}，打工人的日常选择，精神状态一般。`;
+    } else if (foodName.includes('咖啡配面包')) {
+        shareText = `今日伙食是${foodName}，提神醒脑，简单快捷，精神状态清醒。`;
+    } else if (foodName.includes('随便点的外卖')) {
+        shareText = `今日伙食是${foodName}，选择困难症的救星，精神状态随性。`;
+    } else if (foodName.includes('饭团')) {
+        shareText = `今日伙食是${foodName}，便携方便，适合赶时间，精神状态忙碌。`;
+    } else if (foodName.includes('三明治')) {
+        shareText = `今日伙食是${foodName}，西式简餐，营养均衡，精神状态洋气。`;
+    } else if (foodName.includes('炸鸡')) {
+        shareText = `今日伙食是${foodName}，垃圾快乐，解压神器，精神状态愉悦。`;
+    } else if (foodName.includes('寿司')) {
+        shareText = `今日伙食是${foodName}，精致美味，心情愉悦，精神状态高雅。`;
+    } else if (foodName.includes('满汉全席')) {
+        shareText = `今日伙食是${foodName}，终极奢侈，人生巅峰，精神状态尊贵。`;
+    } else if (foodName.includes('米其林大餐')) {
+        shareText = `今日伙食是${foodName}，逼格拉满，钱包空空，精神状态复杂。`;
+    } else {
+        shareText = `我的今日伙食是${foodName}，精神状态已暴露。`;
+    }
     
     // 更新分享文本
-    shareFood.textContent = results.food.name;
-    console.log('更新分享文本:', results.food.name);
+    const shareTextElement = document.querySelector('.share-text');
+    if (shareTextElement) {
+        shareTextElement.innerHTML = shareText;
+    }
+    console.log('更新分享文本:', shareText);
     
     // 切换到分享页
     console.log('切换到分享页');
@@ -307,6 +522,34 @@ function displayResultOnCurrentPage() {
     drawBtn.textContent = '抽卡完成';
 }
 
+// 更新结果容器，显示每次抽卡的结果
+function updateResultContainer() {
+    console.log('更新结果容器');
+    
+    // 显示结果容器
+    const resultContainer = document.getElementById('result-container');
+    resultContainer.style.display = 'block';
+    
+    // 更新运势结果
+    if (results.luck) {
+        document.getElementById('result-luck-display').textContent = results.luck.icon + ' ' + results.luck.name;
+    }
+    
+    // 更新风格结果
+    if (results.style) {
+        document.getElementById('result-style-display').textContent = results.style.icon + ' ' + results.style.name;
+    }
+    
+    // 更新菜品结果
+    if (results.food) {
+        document.getElementById('result-food-display').textContent = results.food.icon + ' ' + results.food.name;
+    }
+    
+    // 计算并更新精神状态适配度
+    const percentage = Math.floor(Math.random() * 30) + 70; // 70-100%
+    document.getElementById('result-percentage-display').textContent = percentage;
+}
+
 // 重新开始
 function restart() {
     // 重置状态
@@ -323,9 +566,7 @@ function restart() {
     
     // 重置所有卡片状态
     cards.forEach(card => {
-        card.classList.remove('flipped', 'spinning');
-        // 重置transform属性
-        card.style.transform = '';
+        card.classList.remove('flipped');
         const back = card.querySelector('.card-back');
         back.querySelector('.card-icon').textContent = '';
         back.querySelector('h2').textContent = '';
