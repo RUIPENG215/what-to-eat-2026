@@ -277,58 +277,100 @@ function drawCard() {
     // 4. 卡片翻转动画
     requestAnimationFrame(() => {
         const flipDurationMs = 1200;
-        const revealDelayMs = Math.floor(flipDurationMs / 2);
-        const postFlipPauseMs = 300;
+        const revealDelayMs = 100; // 提前更新内容，避免显示空白
+        const postFlipPauseMs = 200;
 
-        // 先移除可能存在的 flipped 类，确保可重复触发动画
-        currentCard.classList.remove('flipped');
-        // 触发重排
-        void currentCard.offsetWidth;
-        
-        currentCard.classList.add('flipped');
-        console.log('卡片开始翻转');
-        
-        // 在翻转过程中更新背面内容
-        setTimeout(() => {
-            console.log('更新卡片背面内容:', selectedItem);
-            if (iconEl) {
-                console.log('更新icon元素:', selectedItem.icon);
-                iconEl.textContent = selectedItem.icon;
+        const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const rarityClassMap = {
+            rare: 'rarefx-rare',
+            epic: 'rarefx-epic',
+            legendary: 'rarefx-legendary'
+        };
+        const rarityClass = (selectedItem && selectedItem.rarity && rarityClassMap[selectedItem.rarity]) || 'rarefx-rare';
+        const shouldHoldReveal = currentStep === 3 && selectedItem && isRareRarity(selectedItem.rarity) && !reduceMotion;
+
+        // 提前更新卡片内容，确保翻转后立即显示
+        console.log('更新卡片背面内容:', selectedItem);
+        if (iconEl) {
+            console.log('更新icon元素:', selectedItem.icon);
+            iconEl.textContent = selectedItem.icon;
+        }
+        if (nameEl) {
+            console.log('更新name元素:', selectedItem.name);
+            nameEl.textContent = selectedItem.name;
+        }
+        if (descEl) {
+            console.log('更新desc元素:', selectedItem.desc || '');
+            descEl.textContent = selectedItem.desc || '';
+        }
+
+        if (currentStep === 3 && selectedItem.rarity && rarityEl) {
+            console.log('更新rarity元素:', getRarityText(selectedItem.rarity));
+            rarityEl.textContent = getRarityText(selectedItem.rarity);
+            rarityEl.className = `rarity-badge ${selectedItem.rarity}`;
+        }
+
+        const startFlip = () => {
+            currentCard.classList.remove('rare-hold', 'rare-cover', 'rarefx-rare', 'rarefx-epic', 'rarefx-legendary');
+            if (shouldHoldReveal) {
+                currentCard.classList.add('rare-hold', rarityClass);
             }
-            if (nameEl) {
-                console.log('更新name元素:', selectedItem.name);
-                nameEl.textContent = selectedItem.name;
-            }
-            if (descEl) {
-                console.log('更新desc元素:', selectedItem.desc || '');
-                descEl.textContent = selectedItem.desc || '';
-            }
-            
-            if (currentStep === 3 && selectedItem.rarity && rarityEl) {
-                console.log('更新rarity元素:', getRarityText(selectedItem.rarity));
-                rarityEl.textContent = getRarityText(selectedItem.rarity);
-                rarityEl.className = `rarity-badge ${selectedItem.rarity}`;
-            }
-        }, revealDelayMs);
-        
-        // 翻转完成后，进入下一步或显示结果
-        setTimeout(() => {
-            console.log('翻转完成，当前步骤:', currentStep);
-            
-            if (currentStep < 3) {
-                currentStep++;
-                console.log('进入下一步骤:', currentStep);
-                updateStepUI();
-                drawBtn.disabled = false;
-                drawBtn.textContent = getDrawBtnText(currentStep);
-            } else {
-                console.log('调用showResult函数');
-                // 确保卡片完全停止动画后再显示结果
+
+            // 先移除可能存在的 flipped 类，确保可重复触发动画
+            currentCard.classList.remove('flipped');
+            // 触发重排
+            void currentCard.offsetWidth;
+
+            currentCard.classList.add('flipped');
+            console.log('卡片开始翻转');
+
+            // 翻转进行到一半时开始稀有卡片动画
+            if (currentStep === 3 && shouldHoldReveal) {
+                const coverMs = 2200; // 延长动画时长
+                
+                // 在翻转动画进行到一半时开始光芒动画
                 setTimeout(() => {
-                    showResult();
-                }, 200);
+                    // 创建全屏光芒动画元素
+                    const fullScreenGlow = document.createElement('div');
+                    fullScreenGlow.className = `full-screen-glow ${rarityClass}`;
+                    document.body.appendChild(fullScreenGlow);
+
+                    window.setTimeout(() => {
+                        currentCard.classList.remove('rare-hold');
+                    }, Math.max(0, coverMs - 300));
+
+                    window.setTimeout(() => {
+                        currentCard.classList.remove(rarityClass);
+                        if (fullScreenGlow) {
+                            document.body.removeChild(fullScreenGlow);
+                        }
+                    }, coverMs + 200);
+
+                    window.setTimeout(() => {
+                        showResult();
+                    }, coverMs + 600); // 延长结果显示时间
+
+                }, flipDurationMs / 2);
             }
-        }, flipDurationMs + postFlipPauseMs);
+
+            // 翻转完成后，进入下一步或显示结果
+            setTimeout(() => {
+                console.log('翻转完成，当前步骤:', currentStep);
+
+                if (currentStep < 3) {
+                    currentStep++;
+                    console.log('进入下一步骤:', currentStep);
+                    updateStepUI();
+                    drawBtn.disabled = false;
+                    drawBtn.textContent = getDrawBtnText(currentStep);
+                } else if (!shouldHoldReveal) {
+                    // 非稀有卡片直接显示结果
+                    showResult();
+                }
+            }, flipDurationMs);
+        };
+
+        startFlip();
     });
 }
 
@@ -351,6 +393,10 @@ function getRarityText(rarity) {
         legendary: '传说'
     };
     return rarityMap[rarity] || rarity;
+}
+
+function isRareRarity(rarity) {
+    return !!rarity && rarity !== 'common';
 }
 
 // 显示结果页
@@ -567,6 +613,7 @@ function restart() {
     // 重置所有卡片状态
     cards.forEach(card => {
         card.classList.remove('flipped');
+        card.classList.remove('rare-hold', 'rare-cover', 'rarefx-rare', 'rarefx-epic', 'rarefx-legendary');
         const back = card.querySelector('.card-back');
         back.querySelector('.card-icon').textContent = '';
         back.querySelector('h2').textContent = '';
